@@ -12,6 +12,34 @@ describe('doi-ts', () => {
     })
   })
 
+  describe('instances', () => {
+    describe('Eq', () => {
+      test('with the same DOI', () => {
+        fc.assert(
+          fc.property(fc.doi(), doi => {
+            expect(_.Eq.equals(doi, doi)).toBe(true)
+          }),
+        )
+      })
+
+      test('with the same DOI in different cases', () => {
+        fc.assert(
+          fc.property(fc.doi(), doi => {
+            expect(_.Eq.equals(doi, doi.toLowerCase() as _.Doi)).toBe(true)
+          }),
+        )
+      })
+
+      test('with different DOIs', () => {
+        fc.assert(
+          fc.property(fc.doi(), fc.doi(), (doi1, doi2) => {
+            expect(_.Eq.equals(doi1, doi2)).toBe(false)
+          }),
+        )
+      })
+    })
+  })
+
   describe('refinements', () => {
     describe('isDoi', () => {
       test('with a DOI', () => {

@@ -15,6 +15,13 @@ const doiToString: string = doi
 const stringToDoi: _.Doi = 'foo'
 
 //
+// Eq
+//
+
+// $ExpectType Eq<Doi>
+_.Eq
+
+//
 // isDoi
 //
 

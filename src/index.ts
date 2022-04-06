@@ -2,7 +2,9 @@
  * @since 0.1.0
  */
 import doiRegex from 'doi-regex'
+import * as E from 'fp-ts/Eq'
 import { Refinement } from 'fp-ts/Refinement'
+import * as s from 'fp-ts/string'
 
 // -------------------------------------------------------------------------------------
 // model
@@ -34,6 +36,16 @@ interface DoiBrand {
  * @since 0.1.1
  */
 export const toUrl: (doi: Doi) => URL = doi => new URL(doi, 'https://doi.org')
+
+// -------------------------------------------------------------------------------------
+// instances
+// -------------------------------------------------------------------------------------
+
+/**
+ * @category instances
+ * @since 0.1.1
+ */
+export const Eq: E.Eq<Doi> = E.contramap(s.toLowerCase)(s.Eq)
 
 // -------------------------------------------------------------------------------------
 // refinements

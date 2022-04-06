@@ -14,6 +14,8 @@ Added in v0.1.0
 
 - [destructors](#destructors)
   - [toUrl](#tourl)
+- [instances](#instances)
+  - [Eq](#eq)
 - [model](#model)
   - [Doi (type alias)](#doi-type-alias)
 - [refinements](#refinements)
@@ -39,6 +41,18 @@ import { Doi, toUrl } from 'doi-ts'
 const url = toUrl('10.1000/182' as Doi)
 
 assert.deepStrictEqual(url.href, 'https://doi.org/10.1000/182')
+```
+
+Added in v0.1.1
+
+# instances
+
+## Eq
+
+**Signature**
+
+```ts
+export declare const Eq: E.Eq<Doi>
 ```
 
 Added in v0.1.1
