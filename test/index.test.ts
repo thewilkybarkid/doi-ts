@@ -2,6 +2,16 @@ import * as _ from '../src'
 import * as fc from './fc'
 
 describe('doi-ts', () => {
+  describe('destructors', () => {
+    test('toUrl', () => {
+      fc.assert(
+        fc.property(fc.doi(), doi => {
+          expect(_.toUrl(doi)).toStrictEqual(new URL(`https://doi.org/${doi}`))
+        }),
+      )
+    })
+  })
+
   describe('refinements', () => {
     describe('isDoi', () => {
       test('with a DOI', () => {

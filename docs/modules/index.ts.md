@@ -12,12 +12,36 @@ Added in v0.1.0
 
 <h2 class="text-delta">Table of contents</h2>
 
+- [destructors](#destructors)
+  - [toUrl](#tourl)
 - [model](#model)
   - [Doi (type alias)](#doi-type-alias)
 - [refinements](#refinements)
   - [isDoi](#isdoi)
 
 ---
+
+# destructors
+
+## toUrl
+
+**Signature**
+
+```ts
+export declare const toUrl: (doi: Doi) => URL
+```
+
+**Example**
+
+```ts
+import { Doi, toUrl } from 'doi-ts'
+
+const url = toUrl('10.1000/182' as Doi)
+
+assert.deepStrictEqual(url.href, 'https://doi.org/10.1000/182')
+```
+
+Added in v0.1.1
 
 # model
 
