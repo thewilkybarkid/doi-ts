@@ -14,6 +14,8 @@ Added in v0.1.0
 
 - [model](#model)
   - [Doi (type alias)](#doi-type-alias)
+- [refinements](#refinements)
+  - [isDoi](#isdoi)
 
 ---
 
@@ -25,6 +27,18 @@ Added in v0.1.0
 
 ```ts
 export type Doi = string & DoiBrand
+```
+
+Added in v0.1.0
+
+# refinements
+
+## isDoi
+
+**Signature**
+
+```ts
+export declare const isDoi: Refinement<unknown, Doi>
 ```
 
 Added in v0.1.0
