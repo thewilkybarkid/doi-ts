@@ -10,7 +10,7 @@
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "dependencies": {
-    "doi-regex": "^0.1.12"
+    "doi-regex": "^0.1.13"
   },
   "peerDependencies": {
     "fp-ts": "^2.11.0"
