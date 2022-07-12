@@ -58,6 +58,15 @@ export const Eq: E.Eq<Doi> = E.contramap(s.toLowerCase)(s.Eq)
 export const isDoi: Refinement<unknown, Doi> = (u): u is Doi =>
   typeof u === 'string' && doiRegex({ exact: true }).test(u)
 
+/**
+ * @category refinements
+ * @since 0.1.2
+ */
+export const hasRegistrant =
+  <R extends string>(registrant: R): Refinement<Doi, Doi<R>> =>
+  (doi): doi is Doi<R> =>
+    getRegistrant(doi) === registrant
+
 // -------------------------------------------------------------------------------------
 // utils
 // -------------------------------------------------------------------------------------

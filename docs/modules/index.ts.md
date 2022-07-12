@@ -19,6 +19,7 @@ Added in v0.1.0
 - [model](#model)
   - [Doi (type alias)](#doi-type-alias)
 - [refinements](#refinements)
+  - [hasRegistrant](#hasregistrant)
   - [isDoi](#isdoi)
 - [utils](#utils)
   - [getRegistrant](#getregistrant)
@@ -72,6 +73,16 @@ export type Doi<R extends string = string> = `10.${R}/${string}` & DoiBrand
 Added in v0.1.0
 
 # refinements
+
+## hasRegistrant
+
+**Signature**
+
+```ts
+export declare const hasRegistrant: <R extends string>(registrant: R) => Refinement<Doi<string>, Doi<R>>
+```
+
+Added in v0.1.2
 
 ## isDoi
 
