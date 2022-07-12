@@ -14,7 +14,7 @@ import * as s from 'fp-ts/string'
  * @category model
  * @since 0.1.0
  */
-export type Doi = string & DoiBrand
+export type Doi<R extends string = string> = `10.${R}/${string}` & DoiBrand
 
 interface DoiBrand {
   readonly Doi: unique symbol
@@ -72,4 +72,5 @@ export const isDoi: Refinement<unknown, Doi> = (u): u is Doi =>
  *
  * @since 0.1.2
  */
-export const getRegistrant = (doi: Doi): string => doi.split('/', 1)[0].slice(3)
+export const getRegistrant = <R extends string = string>(doi: Doi<R>): R =>
+  doi.split('/', 1)[0].slice(3) as unknown as R

@@ -54,7 +54,7 @@ Added in v0.1.1
 **Signature**
 
 ```ts
-export declare const Eq: E.Eq<Doi>
+export declare const Eq: E.Eq<Doi<string>>
 ```
 
 Added in v0.1.1
@@ -66,7 +66,7 @@ Added in v0.1.1
 **Signature**
 
 ```ts
-export type Doi = string & DoiBrand
+export type Doi<R extends string = string> = `10.${R}/${string}` & DoiBrand
 ```
 
 Added in v0.1.0
@@ -78,7 +78,7 @@ Added in v0.1.0
 **Signature**
 
 ```ts
-export declare const isDoi: Refinement<unknown, Doi>
+export declare const isDoi: Refinement<unknown, Doi<string>>
 ```
 
 Added in v0.1.0
@@ -90,7 +90,7 @@ Added in v0.1.0
 **Signature**
 
 ```ts
-export declare const getRegistrant: (doi: Doi) => string
+export declare const getRegistrant: <R extends string = string>(doi: Doi<R>) => R
 ```
 
 **Example**
