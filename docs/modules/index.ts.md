@@ -20,6 +20,8 @@ Added in v0.1.0
   - [Doi (type alias)](#doi-type-alias)
 - [refinements](#refinements)
   - [isDoi](#isdoi)
+- [utils](#utils)
+  - [getRegistrant](#getregistrant)
 
 ---
 
@@ -80,3 +82,25 @@ export declare const isDoi: Refinement<unknown, Doi>
 ```
 
 Added in v0.1.0
+
+# utils
+
+## getRegistrant
+
+**Signature**
+
+```ts
+export declare const getRegistrant: (doi: Doi) => string
+```
+
+**Example**
+
+```ts
+import { Doi, getRegistrant } from 'doi-ts'
+
+const registrant = getRegistrant('10.1000/182' as Doi)
+
+assert.deepStrictEqual(registrant, '1000')
+```
+
+Added in v0.1.2

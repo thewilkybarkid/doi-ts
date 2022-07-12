@@ -35,3 +35,9 @@ expectTypeOf(_.Eq).toEqualTypeOf<Eq<Doi>>()
 //
 
 expectTypeOf(pipe(unknown, O.fromPredicate(_.isDoi))).toEqualTypeOf<Option<Doi>>()
+
+//
+// getRegistrant
+//
+
+expectTypeOf(_.getRegistrant(doi)).toEqualTypeOf(string)

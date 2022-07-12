@@ -57,3 +57,19 @@ export const Eq: E.Eq<Doi> = E.contramap(s.toLowerCase)(s.Eq)
  */
 export const isDoi: Refinement<unknown, Doi> = (u): u is Doi =>
   typeof u === 'string' && doiRegex({ exact: true }).test(u)
+
+// -------------------------------------------------------------------------------------
+// utils
+// -------------------------------------------------------------------------------------
+
+/**
+ * @example
+ * import { Doi, getRegistrant } from 'doi-ts'
+ *
+ * const registrant = getRegistrant('10.1000/182' as Doi)
+ *
+ * assert.deepStrictEqual(registrant, '1000')
+ *
+ * @since 0.1.2
+ */
+export const getRegistrant = (doi: Doi): string => doi.split('/', 1)[0].slice(3)

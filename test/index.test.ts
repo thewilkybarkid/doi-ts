@@ -59,4 +59,17 @@ describe('doi-ts', () => {
       })
     })
   })
+
+  describe('utils', () => {
+    test('getRegistrant', () => {
+      fc.assert(
+        fc.property(
+          fc.registrant().chain(registrant => fc.tuple(fc.constant(registrant), fc.doi(fc.constant(registrant)))),
+          ([registrant, doi]) => {
+            expect(_.getRegistrant(doi)).toBe(registrant)
+          },
+        ),
+      )
+    })
+  })
 })
