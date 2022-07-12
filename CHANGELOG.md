@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.1...v0.1.2) (2022-07-12)
+
+
+### Features
+
+* filter DOIs by registrant ([68f830e](https://github.com/thewilkybarkid/doi-ts/commit/68f830e00c18ef81c81d2343eb6dab3abcf6bc77))
+* get the registrant code ([47f64e6](https://github.com/thewilkybarkid/doi-ts/commit/47f64e6c7f28351c958d3a9b2f44602292bc9625))
+* type DOIs by registrant ([f1c0699](https://github.com/thewilkybarkid/doi-ts/commit/f1c0699ea226d66de26281ab325899a6937df68b))
+
+
+### Bug Fixes
+
+* allow 2-digit registrant codes ([da0b727](https://github.com/thewilkybarkid/doi-ts/commit/da0b727573171d4325012b974806af3487c3ec89))
+
 ### [0.1.1](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.0...v0.1.1) (2022-04-06)
 
 
