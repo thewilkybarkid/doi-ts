@@ -48,6 +48,9 @@ expectTypeOf(pipe(unknown, O.fromPredicate(_.isDoi))).toEqualTypeOf<Option<Doi>>
 //
 
 expectTypeOf(pipe(doi, O.fromPredicate(_.hasRegistrant(registrantBiorxiv)))).toEqualTypeOf<Option<typeof doiBiorxiv>>()
+expectTypeOf(pipe(doi, O.fromPredicate(_.hasRegistrant(registrantBiorxiv, registrantElife)))).toEqualTypeOf<
+  Option<typeof doiBiorxiv | typeof doiElife>
+>()
 
 //
 // getRegistrant

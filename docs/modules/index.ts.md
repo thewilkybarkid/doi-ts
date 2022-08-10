@@ -79,7 +79,7 @@ Added in v0.1.0
 **Signature**
 
 ```ts
-export declare const hasRegistrant: <R extends string>(registrant: R) => Refinement<Doi<string>, Doi<R>>
+export declare const hasRegistrant: <R extends string>(...registrants: readonly R[]) => Refinement<Doi<string>, Doi<R>>
 ```
 
 Added in v0.1.2

@@ -63,9 +63,11 @@ describe('doi-ts', () => {
       test('when the registrant matches', () => {
         fc.assert(
           fc.property(
-            fc.registrant().chain(registrant => fc.tuple(fc.constant(registrant), fc.doi(fc.constant(registrant)))),
-            ([registrant, doi]) => {
-              expect(_.hasRegistrant(registrant)(doi)).toBe(true)
+            fc
+              .array(fc.registrant(), { minLength: 1 })
+              .chain(registrants => fc.tuple(fc.constant(registrants), fc.doi(fc.constantFrom(...registrants)))),
+            ([registrants, doi]) => {
+              expect(_.hasRegistrant(...registrants)(doi)).toBe(true)
             },
           ),
         )
@@ -73,8 +75,8 @@ describe('doi-ts', () => {
 
       test('when the registrant does not match', () => {
         fc.assert(
-          fc.property(fc.registrant(), fc.doi(), (registrant, doi) => {
-            expect(_.hasRegistrant(registrant)(doi)).toBe(false)
+          fc.property(fc.array(fc.registrant()), fc.doi(), (registrants, doi) => {
+            expect(_.hasRegistrant(...registrants)(doi)).toBe(false)
           }),
         )
       })

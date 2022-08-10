@@ -63,9 +63,9 @@ export const isDoi: Refinement<unknown, Doi> = (u): u is Doi =>
  * @since 0.1.2
  */
 export const hasRegistrant =
-  <R extends string>(registrant: R): Refinement<Doi, Doi<R>> =>
+  <R extends string>(...registrants: ReadonlyArray<R>): Refinement<Doi, Doi<R>> =>
   (doi): doi is Doi<R> =>
-    getRegistrant(doi) === registrant
+    (registrants as ReadonlyArray<string>).includes(getRegistrant(doi))
 
 // -------------------------------------------------------------------------------------
 // utils
