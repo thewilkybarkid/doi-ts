@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.2...v0.1.3) (2022-08-10)
+
+
+### Features
+
+* filter DOIs by multiple registrants ([08ccbf4](https://github.com/thewilkybarkid/doi-ts/commit/08ccbf4c020ba462f2f74f9ca6dcf32977e7097d))
+
 ### [0.1.2](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.1...v0.1.2) (2022-07-12)
 
 
