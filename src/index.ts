@@ -3,8 +3,12 @@
  */
 import doiRegex from 'doi-regex'
 import * as E from 'fp-ts/Eq'
+import * as O from 'fp-ts/Option'
 import { Refinement } from 'fp-ts/Refinement'
+import { flow } from 'fp-ts/function'
 import * as s from 'fp-ts/string'
+
+import Option = O.Option
 
 // -------------------------------------------------------------------------------------
 // model
@@ -70,6 +74,22 @@ export const hasRegistrant =
 // -------------------------------------------------------------------------------------
 // utils
 // -------------------------------------------------------------------------------------
+
+/**
+ * @example
+ * import { Doi, parse } from 'doi-ts'
+ * import * as O from 'fp-ts/Option'
+ *
+ * assert.deepStrictEqual(parse('https://doi.org/10.1000/182'), O.some('10.1000/182' as Doi))
+ * assert.deepStrictEqual(parse('not a DOI'), O.none)
+ *
+ * @since 0.1.4
+ */
+export const parse: (s: string) => Option<Doi> = flow(
+  s.trim,
+  s.replace(/^(?:https?:\/\/(?:dx\.)?doi\.org\/|doi:)?/i, ''),
+  O.fromPredicate(isDoi),
+)
 
 /**
  * @example

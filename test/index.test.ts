@@ -1,3 +1,4 @@
+import * as O from 'fp-ts/Option'
 import * as _ from '../src'
 import * as fc from './fc'
 
@@ -84,6 +85,43 @@ describe('doi-ts', () => {
   })
 
   describe('utils', () => {
+    describe('parse', () => {
+      test('when it contains a DOI', () => {
+        fc.assert(
+          fc.property(
+            fc
+              .tuple(
+                fc.doi(),
+                fc.stringOf(fc.constant(' ')),
+                fc.constantFrom(
+                  'doi:',
+                  'https://doi.org/',
+                  'http://doi.org/',
+                  'https://dx.doi.org/',
+                  'http://dx.doi.org/',
+                ),
+                fc.stringOf(fc.constant(' ')),
+              )
+              .map(([doi, whitespaceBefore, prefix, whitespaceAfter]) => [
+                doi,
+                `${whitespaceBefore}${prefix}${doi}${whitespaceAfter}`,
+              ]),
+            ([doi, input]) => {
+              expect(_.parse(input)).toStrictEqual(O.some(doi))
+            },
+          ),
+        )
+      })
+
+      test('when it does not contain a DOI', () => {
+        fc.assert(
+          fc.property(fc.unicodeString(), input => {
+            expect(_.parse(input)).toStrictEqual(O.none)
+          }),
+        )
+      })
+    })
+
     test('getRegistrant', () => {
       fc.assert(
         fc.property(

@@ -53,6 +53,12 @@ expectTypeOf(pipe(doi, O.fromPredicate(_.hasRegistrant(registrantBiorxiv, regist
 >()
 
 //
+// parse
+//
+
+expectTypeOf(_.parse(string)).toEqualTypeOf<Option<Doi>>()
+
+//
 // getRegistrant
 //
 

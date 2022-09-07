@@ -23,6 +23,7 @@ Added in v0.1.0
   - [isDoi](#isdoi)
 - [utils](#utils)
   - [getRegistrant](#getregistrant)
+  - [parse](#parse)
 
 ---
 
@@ -115,3 +116,23 @@ assert.deepStrictEqual(registrant, '1000')
 ```
 
 Added in v0.1.2
+
+## parse
+
+**Signature**
+
+```ts
+export declare const parse: (s: string) => Option<Doi>
+```
+
+**Example**
+
+```ts
+import { Doi, parse } from 'doi-ts'
+import * as O from 'fp-ts/Option'
+
+assert.deepStrictEqual(parse('https://doi.org/10.1000/182'), O.some('10.1000/182' as Doi))
+assert.deepStrictEqual(parse('not a DOI'), O.none)
+```
+
+Added in v0.1.4
