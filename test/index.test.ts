@@ -17,8 +17,10 @@ describe('doi-ts', () => {
         expect(_.Eq.equals(doi, doi)).toBe(true)
       })
 
-      test.prop([fc.doi()])('with the same DOI in different cases', doi => {
-        expect(_.Eq.equals(doi, doi.toLowerCase() as _.Doi)).toBe(true)
+      test.prop([fc.doi().map(doi => [doi, doi.toLowerCase() as _.Doi])], {
+        examples: [[['10.123/ABC' as _.Doi, '10.123/AbC' as _.Doi]]],
+      })('with the same DOI in different cases', ([doi1, doi2]) => {
+        expect(_.Eq.equals(doi1, doi2)).toBe(true)
       })
 
       test.prop([fc.doi(), fc.doi()])('with different DOIs', (doi1, doi2) => {
@@ -29,11 +31,28 @@ describe('doi-ts', () => {
 
   describe('refinements', () => {
     describe('isDoi', () => {
-      test.prop([fc.doi()])('with a DOI', doi => {
+      test.prop([fc.doi()], {
+        examples: [
+          ['10.0001/journal.pone.000001' as _.Doi],
+          ['10.0001/journal/pone.0011111' as _.Doi],
+          ['10.0001.112/journal.pone.0011021' as _.Doi],
+          ['10.0001/issn.10001' as _.Doi],
+          ['10.10.123/456' as _.Doi],
+          ['10.1002/(SICI)1096-8644(199808)106:4<483::AID-AJPA4>3.0.CO;2-K' as _.Doi],
+        ],
+      })('with a DOI', doi => {
         expect(_.isDoi(doi)).toBe(true)
       })
 
-      test.prop([fc.anything()])('with a non-DOI', value => {
+      test.prop([fc.anything()], {
+        examples: [
+          ['10..1000/journal.pone.0011111'],
+          ['1.1/1.1'],
+          ['10/134980'],
+          ['10.001/001#00'],
+          ['10.1000/456%23789'],
+        ],
+      })('with a non-DOI', value => {
         expect(_.isDoi(value)).toBe(false)
       })
     })
@@ -71,7 +90,20 @@ describe('doi-ts', () => {
         expect(_.parse(input)).toStrictEqual(O.some(doi))
       })
 
-      test.prop([fc.unicodeString()])('when it does not contain a DOI', input => {
+      test.prop([fc.unicodeString()], {
+        examples: [
+          ['dx.doi.org/10.1016/j.neuron.2014.09.004'],
+          ['doi.org/10.1016/j.neuron.2014.09.004'],
+          ['do:10.1000/journal.pone.0011111'],
+          ['doi:10..1000/journal.pone.0011111'],
+          ['DO:10.1000/journal.pone.0011111'],
+          [':10.1000/journal.pone.0011111'],
+          ['httpp://dx.doi.org/10.1016/j.neuron.2014.09.004'],
+          ['httpp://doi.org/10.1016/j.neuron.2014.09.004'],
+          ['ftp://dx.doi.org/10.1016/j.neuron.2014.09.004'],
+          ['ftp://doi.org/10.1016/j.neuron.2014.09.004'],
+        ],
+      })('when it does not contain a DOI', input => {
         expect(_.parse(input)).toStrictEqual(O.none)
       })
     })
