@@ -1,3 +1,4 @@
+import { describe, expect, test } from '@jest/globals'
 import * as O from 'fp-ts/Option'
 import * as _ from '../src'
 import * as fc from './fc'
