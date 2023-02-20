@@ -39,7 +39,12 @@ interface DoiBrand {
  * @category destructors
  * @since 0.1.1
  */
-export const toUrl: (doi: Doi) => URL = doi => new URL(doi, 'https://doi.org')
+export const toUrl: (doi: Doi) => URL = doi => {
+  const url = new URL('https://doi.org')
+  url.pathname = doi
+
+  return url
+}
 
 // -------------------------------------------------------------------------------------
 // instances
