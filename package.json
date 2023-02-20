@@ -1,7 +1,7 @@
 {
   "name": "doi-ts",
   "description": "A DOI library for use with fp-ts.",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "homepage": "https://github.com/thewilkybarkid/doi-ts",
   "repository": "github:thewilkybarkid/doi-ts",

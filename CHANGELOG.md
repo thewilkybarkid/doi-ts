@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.4...v0.1.5) (2023-02-20)
+
+
+### Bug Fixes
+
+* encode DOIs containing '/./' and '/../' correctly ([ec2e9a3](https://github.com/thewilkybarkid/doi-ts/commit/ec2e9a36b7d4cb4e1811e6934a60a21e8eaa55fe))
+* ensure DOIs are encoded correctly when creating a URL ([c4b9a0f](https://github.com/thewilkybarkid/doi-ts/commit/c4b9a0f7ef2cc5a4bc29f6e08d33da952c9dc751))
+
 ### [0.1.4](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.3...v0.1.4) (2022-09-07)
 
 
