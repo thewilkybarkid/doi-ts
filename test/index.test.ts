@@ -16,6 +16,8 @@ describe('doi-ts', () => {
             'https://doi.org/10.1002/(SICI)1096-8644(199808)106:4%3C483::AID-AJPA4%3E3.0.CO;2-K',
           ],
         ],
+        [['10.1000/./' as _.Doi, 'https://doi.org/10.1000/.%2F']],
+        [['10.1000/../' as _.Doi, 'https://doi.org/10.1000/..%2F']],
       ],
     })('toUrl', ([doi, url]) => {
       expect(_.toUrl(doi).href).toStrictEqual(url)
@@ -50,6 +52,10 @@ describe('doi-ts', () => {
           ['10.0001/issn.10001' as _.Doi],
           ['10.10.123/456' as _.Doi],
           ['10.1002/(SICI)1096-8644(199808)106:4<483::AID-AJPA4>3.0.CO;2-K' as _.Doi],
+          ['10.0000/.a' as _.Doi],
+          ['10.0000/..a' as _.Doi],
+          ['10.0000/./' as _.Doi],
+          ['10.0000/../' as _.Doi],
         ],
       })('with a DOI', doi => {
         expect(_.isDoi(doi)).toBe(true)
@@ -62,6 +68,8 @@ describe('doi-ts', () => {
           ['10/134980'],
           ['10.001/001#00'],
           ['10.1000/456%23789'],
+          ['10.0000/.'],
+          ['10.0000/..'],
         ],
       })('with a non-DOI', value => {
         expect(_.isDoi(value)).toBe(false)

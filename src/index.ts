@@ -41,7 +41,7 @@ interface DoiBrand {
  */
 export const toUrl: (doi: Doi) => URL = doi => {
   const url = new URL('https://doi.org')
-  url.pathname = doi
+  url.pathname = doi.replace(/\/(\.{1,2})\//g, '/$1%2F')
 
   return url
 }
@@ -65,7 +65,7 @@ export const Eq: E.Eq<Doi> = E.contramap(s.toLowerCase)(s.Eq)
  * @since 0.1.0
  */
 export const isDoi: Refinement<unknown, Doi> = (u): u is Doi =>
-  typeof u === 'string' && doiRegex({ exact: true }).test(u)
+  typeof u === 'string' && doiRegex({ exact: true }).test(u) && !u.endsWith('/.') && !u.endsWith('/..')
 
 /**
  * @category refinements

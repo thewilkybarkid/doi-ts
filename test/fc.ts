@@ -16,4 +16,4 @@ export const doi = (withRegistrant?: fc.Arbitrary<string>): fc.Arbitrary<_.Doi> 
   fc
     .tuple(withRegistrant ?? registrant(), fc.unicodeString({ minLength: 1 }))
     .map(([prefix, suffix]) => `10.${prefix}/${suffix}` as _.Doi)
-    .filter(s => doiRegex({ exact: true }).test(s))
+    .filter(s => doiRegex({ exact: true }).test(s) && !s.endsWith('/.') && !s.endsWith('/..'))
