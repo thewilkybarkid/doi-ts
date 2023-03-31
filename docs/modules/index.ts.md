@@ -102,7 +102,7 @@ Added in v0.1.0
 **Signature**
 
 ```ts
-export declare const getRegistrant: <R extends string = string>(doi: Doi<R>) => R
+export declare const getRegistrant: <T extends Doi<string> = Doi<string>>(doi: T) => T extends Doi<infer R> ? R : never
 ```
 
 **Example**

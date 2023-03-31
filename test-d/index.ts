@@ -14,6 +14,7 @@ declare const registrantElife: '7554'
 declare const doi: Doi
 declare const doiBiorxiv: Doi<typeof registrantBiorxiv>
 declare const doiElife: Doi<typeof registrantElife>
+declare const doiBiorxivOrElife: typeof doiBiorxiv | typeof doiElife
 
 //
 // Doi
@@ -64,3 +65,4 @@ expectTypeOf(_.parse(string)).toEqualTypeOf<Option<Doi>>()
 
 expectTypeOf(_.getRegistrant(doi)).toEqualTypeOf(string)
 expectTypeOf(_.getRegistrant(doiBiorxiv)).toEqualTypeOf(registrantBiorxiv)
+expectTypeOf(_.getRegistrant(doiBiorxivOrElife)).toEqualTypeOf<typeof registrantBiorxiv | typeof registrantElife>()

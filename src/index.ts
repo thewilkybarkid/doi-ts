@@ -106,5 +106,5 @@ export const parse: (s: string) => Option<Doi> = flow(
  *
  * @since 0.1.2
  */
-export const getRegistrant = <R extends string = string>(doi: Doi<R>): R =>
-  doi.split('/', 1)[0].slice(3) as unknown as R
+export const getRegistrant = <T extends Doi = Doi>(doi: T): T extends Doi<infer R> ? R : never =>
+  doi.split('/', 1)[0].slice(3) as never
