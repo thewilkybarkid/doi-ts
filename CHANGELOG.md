@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.5...v0.1.6) (2023-03-31)
+
+
+### Bug Fixes
+
+* return the registrant code when handling a union type ([b285c6e](https://github.com/thewilkybarkid/doi-ts/commit/b285c6e2e1cc1aed043f9414f1ef86e36a38cde7))
+
 ### [0.1.5](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.4...v0.1.5) (2023-02-20)
 
 
