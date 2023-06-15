@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.6...v0.1.7) (2023-06-15)
+
+
+### Bug Fixes
+
+* encode DOIs containing '\' correctly ([ce43cdb](https://github.com/thewilkybarkid/doi-ts/commit/ce43cdb13bd33ce836159084e7c141d39fd6b77b))
+
 ### [0.1.6](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.5...v0.1.6) (2023-03-31)
 
 
