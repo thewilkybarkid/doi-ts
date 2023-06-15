@@ -17,6 +17,7 @@ describe('destructors', () => {
       ],
       [['10.1000/./' as _.Doi, 'https://doi.org/10.1000/.%2F']],
       [['10.1000/../' as _.Doi, 'https://doi.org/10.1000/..%2F']],
+      [['10.1000/\\' as _.Doi, 'https://doi.org/10.1000/%5C']],
     ],
   })('toUrl', ([doi, url]) => {
     expect(_.toUrl(doi).href).toStrictEqual(url)

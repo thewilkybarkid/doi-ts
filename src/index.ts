@@ -41,7 +41,7 @@ interface DoiBrand {
  */
 export const toUrl: (doi: Doi) => URL = doi => {
   const url = new URL('https://doi.org')
-  url.pathname = doi.replace(/\/(\.{1,2})\//g, '/$1%2F')
+  url.pathname = doi.replace(/\/(\.{1,2})\//g, '/$1%2F').replace(/\\/g, '%5C')
 
   return url
 }
