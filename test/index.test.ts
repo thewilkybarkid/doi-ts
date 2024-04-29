@@ -5,7 +5,7 @@ import * as _ from '../src'
 import * as fc from './fc'
 
 describe('destructors', () => {
-  test.prop([fc.doi().map(doi => [doi, new URL(`https://doi.org/${doi}`).href] as const)], {
+  test.prop([fc.doi().map(doi => [doi, new URL(`https://doi.org/${encodeURI(doi)}`).href] as const)], {
     examples: [
       [['10.0001/journal/pone.0011111' as _.Doi, 'https://doi.org/10.0001/journal/pone.0011111']],
       [['10.1000/456#789' as _.Doi, 'https://doi.org/10.1000/456%23789']],
@@ -103,7 +103,7 @@ describe('utils', () => {
               fc.doi().map(doi => [doi, `doi:${doi}`]),
               fc
                 .tuple(fc.doi(), fc.constantFrom('https', 'http'), fc.constantFrom('doi.org', 'dx.doi.org'))
-                .map(([doi, scheme, host]) => [doi, new URL(`${scheme}://${host}/${doi}`).href]),
+                .map(([doi, scheme, host]) => [doi, new URL(`${scheme}://${host}/${encodeURI(doi)}`).href]),
             ),
             fc.stringOf(fc.constant(' ')),
           )
