@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.8...v0.1.9) (2024-04-29)
+
+
+### Bug Fixes
+
+* ensure DOIs with multiple % characters are encoded correctly ([6cb9339](https://github.com/thewilkybarkid/doi-ts/commit/6cb93390fa079c997ae6db5c98491319f19036df))
+* remove unused dependency ([d3b93b9](https://github.com/thewilkybarkid/doi-ts/commit/d3b93b99a1ab68a19beba32730e211ecefd2600d))
+
 ### [0.1.8](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.7...v0.1.8) (2024-04-29)
 
 
