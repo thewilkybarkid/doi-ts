@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.7...v0.1.8) (2024-04-29)
+
+
+### Bug Fixes
+
+* correctly handle URL-encoded characters ([f5265a1](https://github.com/thewilkybarkid/doi-ts/commit/f5265a11bb492d81f7b88a8709f97db890b63e5b))
+
 ### [0.1.7](https://github.com/thewilkybarkid/doi-ts/compare/v0.1.6...v0.1.7) (2023-06-15)
 
 
