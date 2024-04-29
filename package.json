@@ -9,9 +9,6 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
-  "dependencies": {
-    "doi-regex": "^0.1.13"
-  },
   "peerDependencies": {
     "fp-ts": "^2.11.0"
   },
@@ -27,6 +24,7 @@
     "@typescript-eslint/parser": "^5.18.0",
     "del-cli": "^4.0.1",
     "docs-ts": "^0.6.10",
+    "doi-regex": "^0.1.13",
     "eslint": "^8.12.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.1",
