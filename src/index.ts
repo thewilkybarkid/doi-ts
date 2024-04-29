@@ -1,7 +1,6 @@
 /**
  * @since 0.1.0
  */
-import doiRegex from 'doi-regex'
 import * as E from 'fp-ts/Eq'
 import * as O from 'fp-ts/Option'
 import { Refinement } from 'fp-ts/Refinement'
@@ -41,7 +40,10 @@ interface DoiBrand {
  */
 export const toUrl: (doi: Doi) => URL = doi => {
   const url = new URL('https://doi.org')
-  url.pathname = doi.replace(/\/(\.{1,2})\//g, '/$1%2F').replace(/\\/g, '%5C')
+  url.pathname = doi
+    .replace('%', '%25')
+    .replace(/\/(\.{1,2})\//g, '/$1%2F')
+    .replace(/\\/g, '%5C')
 
   return url
 }
@@ -65,7 +67,7 @@ export const Eq: E.Eq<Doi> = E.contramap(s.toLowerCase)(s.Eq)
  * @since 0.1.0
  */
 export const isDoi: Refinement<unknown, Doi> = (u): u is Doi =>
-  typeof u === 'string' && doiRegex({ exact: true }).test(u) && !u.endsWith('/.') && !u.endsWith('/..')
+  typeof u === 'string' && /^10[.][0-9]{2,}(?:[.][0-9]+)*\/\S+$/.test(u) && !u.endsWith('/.') && !u.endsWith('/..')
 
 /**
  * @category refinements
@@ -90,11 +92,27 @@ export const hasRegistrant =
  *
  * @since 0.1.4
  */
-export const parse: (s: string) => Option<Doi> = flow(
-  s.trim,
-  s.replace(/^(?:https?:\/\/(?:dx\.)?doi\.org\/|doi:)?/i, ''),
-  O.fromPredicate(isDoi),
-)
+export const parse: (s: string) => Option<Doi> = flow(s.trim, s => {
+  if (isDoi(s)) {
+    return O.some(s)
+  }
+
+  if (s.startsWith('doi:')) {
+    return O.fromPredicate(isDoi)(s.substring(4))
+  }
+
+  try {
+    const url = new URL(s)
+
+    if (!['http:', 'https:'].includes(url.protocol) || !['doi.org', 'dx.doi.org'].includes(url.hostname)) {
+      return O.none
+    }
+
+    return O.fromPredicate(isDoi)(decodeURIComponent(url.pathname).substring(1))
+  } catch {
+    return O.fromPredicate(isDoi)(s)
+  }
+})
 
 /**
  * @example

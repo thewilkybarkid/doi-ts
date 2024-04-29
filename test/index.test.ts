@@ -9,14 +9,17 @@ describe('destructors', () => {
     examples: [
       [['10.0001/journal/pone.0011111' as _.Doi, 'https://doi.org/10.0001/journal/pone.0011111']],
       [['10.1000/456#789' as _.Doi, 'https://doi.org/10.1000/456%23789']],
+      [['10.1000/456%23789' as _.Doi, 'https://doi.org/10.1000/456%2523789']],
       [
         [
-          '10.1002/(SICI)1096-8644(199808)106:4<483::AID-AJPA4>3.0.CO;2-K' as _.Doi,
-          'https://doi.org/10.1002/(SICI)1096-8644(199808)106:4%3C483::AID-AJPA4%3E3.0.CO;2-K',
+          '10.1002/(SICI)1521-3951(199911)216:1<135::AID-PSSB135>3.0.CO;2-#' as _.Doi,
+          'https://doi.org/10.1002/(SICI)1521-3951(199911)216:1%3C135::AID-PSSB135%3E3.0.CO;2-%23',
         ],
       ],
       [['10.1000/./' as _.Doi, 'https://doi.org/10.1000/.%2F']],
       [['10.1000/../' as _.Doi, 'https://doi.org/10.1000/..%2F']],
+      [['10.1000/...' as _.Doi, 'https://doi.org/10.1000/...']],
+      [['10.1000/.../' as _.Doi, 'https://doi.org/10.1000/.../']],
       [['10.1000/\\' as _.Doi, 'https://doi.org/10.1000/%5C']],
     ],
   })('toUrl', ([doi, url]) => {
@@ -48,10 +51,12 @@ describe('refinements', () => {
       examples: [
         ['10.0001/journal.pone.000001' as _.Doi],
         ['10.0001/journal/pone.0011111' as _.Doi],
+        ['10.1000/456%23789' as _.Doi],
         ['10.0001.112/journal.pone.0011021' as _.Doi],
         ['10.0001/issn.10001' as _.Doi],
         ['10.10.123/456' as _.Doi],
         ['10.1002/(SICI)1096-8644(199808)106:4<483::AID-AJPA4>3.0.CO;2-K' as _.Doi],
+        ['10.1002/(SICI)1521-3951(199911)216:1<135::AID-PSSB135>3.0.CO;2-%23' as _.Doi],
         ['10.0000/.a' as _.Doi],
         ['10.0000/..a' as _.Doi],
         ['10.0000/./' as _.Doi],
@@ -61,17 +66,12 @@ describe('refinements', () => {
       expect(_.isDoi(doi)).toBe(true)
     })
 
-    test.prop([fc.anything()], {
-      examples: [
-        ['10..1000/journal.pone.0011111'],
-        ['1.1/1.1'],
-        ['10/134980'],
-        ['10.001/001#00'],
-        ['10.1000/456%23789'],
-        ['10.0000/.'],
-        ['10.0000/..'],
-      ],
-    })('with a non-DOI', value => {
+    test.prop(
+      [fc.anything().filter(value => !(typeof value === 'string') || /\s/.test(value) || !value.startsWith('10.'))],
+      {
+        examples: [['10..1000/journal.pone.0011111'], ['1.1/1.1'], ['10/134980'], ['10.0000/.'], ['10.0000/..']],
+      },
+    )('with a non-DOI', value => {
       expect(_.isDoi(value)).toBe(false)
     })
   })
@@ -93,23 +93,48 @@ describe('refinements', () => {
 
 describe('utils', () => {
   describe('parse', () => {
-    test.prop([
-      fc
-        .tuple(
-          fc.doi(),
-          fc.stringOf(fc.constant(' ')),
-          fc.constantFrom('doi:', 'https://doi.org/', 'http://doi.org/', 'https://dx.doi.org/', 'http://dx.doi.org/'),
-          fc.stringOf(fc.constant(' ')),
-        )
-        .map(([doi, whitespaceBefore, prefix, whitespaceAfter]) => [
-          doi,
-          `${whitespaceBefore}${prefix}${doi}${whitespaceAfter}`,
-        ]),
-    ])('when it contains a DOI', ([doi, input]) => {
+    test.prop(
+      [
+        fc
+          .tuple(
+            fc.stringOf(fc.constant(' ')),
+            fc.oneof(
+              fc.doi().map(doi => [doi, doi]),
+              fc.doi().map(doi => [doi, `doi:${doi}`]),
+              fc
+                .tuple(fc.doi(), fc.constantFrom('https', 'http'), fc.constantFrom('doi.org', 'dx.doi.org'))
+                .map(([doi, scheme, host]) => [doi, new URL(`${scheme}://${host}/${doi}`).href]),
+            ),
+            fc.stringOf(fc.constant(' ')),
+          )
+          .map(([whitespaceBefore, [doi, encoded], whitespaceAfter]) => [
+            doi,
+            `${whitespaceBefore}${encoded}${whitespaceAfter}`,
+          ]),
+      ],
+      {
+        examples: [
+          [['10.0001/journal/pone.0011111' as _.Doi, 'https://doi.org/10.0001/journal/pone.0011111']],
+          [['10.1000/456#789' as _.Doi, 'https://doi.org/10.1000/456%23789']],
+          [['10.1000/456%23789' as _.Doi, 'https://doi.org/10.1000/456%2523789']],
+          [
+            [
+              '10.1002/(SICI)1521-3951(199911)216:1<135::AID-PSSB135>3.0.CO;2-#' as _.Doi,
+              'https://doi.org/10.1002/(SICI)1521-3951(199911)216:1%3C135::AID-PSSB135%3E3.0.CO;2-%23',
+            ],
+          ],
+          [['10.1000/./' as _.Doi, 'https://doi.org/10.1000/.%2F']],
+          [['10.1000/../' as _.Doi, 'https://doi.org/10.1000/..%2F']],
+          [['10.1000/...' as _.Doi, 'https://doi.org/10.1000/...']],
+          [['10.1000/.../' as _.Doi, 'https://doi.org/10.1000/.../']],
+          [['10.1000/\\' as _.Doi, 'https://doi.org/10.1000/%5C']],
+        ],
+      },
+    )('when it contains a DOI', ([doi, input]) => {
       expect(_.parse(input)).toStrictEqual(O.some(doi))
     })
 
-    test.prop([fc.unicodeString()], {
+    test.prop([fc.unicodeString().filter(value => /\s/.test(value) || !value.startsWith('10.'))], {
       examples: [
         ['dx.doi.org/10.1016/j.neuron.2014.09.004'],
         ['doi.org/10.1016/j.neuron.2014.09.004'],
