@@ -25,6 +25,8 @@ expectTypeOf(string).not.toMatchTypeOf(doi)
 expectTypeOf(doiBiorxiv).toMatchTypeOf(doi)
 expectTypeOf(doi).not.toMatchTypeOf(doiBiorxiv)
 expectTypeOf(doiBiorxiv).not.toMatchTypeOf(doiElife)
+expectTypeOf(Doi(string)).toMatchTypeOf(doi)
+expectTypeOf(Doi('10.1101/182')).toMatchTypeOf(doiBiorxiv)
 
 //
 // toUrl

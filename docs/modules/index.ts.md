@@ -12,6 +12,8 @@ Added in v0.1.0
 
 <h2 class="text-delta">Table of contents</h2>
 
+- [constructors](#constructors)
+  - [Doi](#doi)
 - [destructors](#destructors)
   - [toUrl](#tourl)
 - [instances](#instances)
@@ -26,6 +28,28 @@ Added in v0.1.0
   - [parse](#parse)
 
 ---
+
+# constructors
+
+## Doi
+
+**Signature**
+
+```ts
+export declare function Doi<A extends string>(doi: A): A extends `10.${infer R}/${string}` ? Doi<R> : Doi
+```
+
+**Example**
+
+```ts
+import { Doi } from 'doi-ts'
+
+const doi = Doi('10.1000/182')
+
+assert.deepStrictEqual(doi, '10.1000/182')
+```
+
+Added in v0.1.10
 
 # destructors
 

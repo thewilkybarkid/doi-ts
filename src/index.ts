@@ -24,6 +24,29 @@ interface DoiBrand {
 }
 
 // -------------------------------------------------------------------------------------
+// constructors
+// -------------------------------------------------------------------------------------
+
+/**
+ * @example
+ * import { Doi } from 'doi-ts'
+ *
+ * const doi = Doi('10.1000/182')
+ *
+ * assert.deepStrictEqual(doi, '10.1000/182')
+ *
+ * @category constructors
+ * @since 0.1.10
+ */
+export function Doi<A extends string>(doi: A): A extends `10.${infer R}/${string}` ? Doi<R> : Doi {
+  if (!isDoi(doi)) {
+    throw new Error('Not a DOI')
+  }
+
+  return doi as unknown as A extends `10.${infer R}/${string}` ? Doi<R> : Doi
+}
+
+// -------------------------------------------------------------------------------------
 // destructors
 // -------------------------------------------------------------------------------------
 
